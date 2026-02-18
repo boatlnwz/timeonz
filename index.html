@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thailand Space View</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+    <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+    <link href="[https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Prompt:wght@300;400;500&display=swap](https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Prompt:wght@300;400;500&display=swap)" rel="stylesheet">
+    <!-- Tailwind -->
+    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+    <!-- Link to CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="scene-container">
+        <div class="bg-base"></div>
+        <div class="day-atmosphere"></div>
+        <div class="sun-flare"></div>
+    </div>
+
+    <div class="ui-glass">
+        <img src="astroman.png" class="astronaut" alt="Floating Astronaut">
+        <div class="location-wrapper">
+            <select id="location-select" class="location-select" onchange="changeLocation()">
+                <option value="bangkok">BANGKOK</option>
+                <option value="salaya">SALAYA</option>
+                <option value="phetchaburi">PHETCHABURI</option>
+            </select>
+        </div>
+        
+        <div class="date-text" id="date-th">--</div>
+
+        <div class="time-block">
+            <span class="digital-time" id="clock-h">00</span>
+            <span class="digital-time separator">:</span>
+            <span class="digital-time" id="clock-m">00</span>
+            <span class="seconds" id="clock-s">00</span>
+        </div>
+
+        <div class="weather-info">
+            <span id="w-icon" class="loading">...</span>
+            <span id="w-temp" class="loading">--°C</span>
+        </div>
+        <div class="weather-desc" id="w-desc">กำลังโหลดข้อมูล...</div>
+    </div>
+
+    <!-- Link to JS -->
+    <script src="script.js"></script>
+</body>
+</html>
