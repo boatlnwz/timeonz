@@ -194,3 +194,81 @@ option { background-color: #222; color: #fff; }
         right: -20px;
     }
 }
+.credit-text {
+    position: absolute; 
+    bottom: 30px; 
+    left: 0; 
+    width: 100%;
+    font-weight: bold; 
+    text-align: center; 
+    font-size: 1.3rem; 
+    opacity: 0.7; 
+    z-index: 20; 
+    color: rgb(252, 255, 64); 
+    font-family: 'Courier New', monospace;
+}
+/* --- Pomodoro System --- */
+.pomodoro-container {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.pomodoro-header {
+    display: flex;
+    gap: 10px;
+}
+
+.pom-btn, .pom-control-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-family: 'Prompt', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.pom-btn:hover, .pom-control-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+}
+
+.pom-btn.active {
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    font-weight: 500;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.pomodoro-timer {
+    font-size: 3.5rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    font-family: 'Montserrat', sans-serif;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    margin: 0;
+    line-height: 1;
+}
+
+.pomodoro-controls {
+    display: flex;
+    gap: 15px;
+}
+#pom-min-sec {
+    font-variant-numeric: tabular-nums; /* ล็อคความกว้างตัวเลข */
+}
+
+.pom-ms {
+    font-size: 1.5rem; /* ขนาดเล็กกว่า นาที:วินาที */
+    opacity: 0.6;
+    margin-left: 2px;
+    font-variant-numeric: tabular-nums;
+}
