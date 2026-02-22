@@ -10,8 +10,6 @@
     <link href="[https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Prompt:wght@300;400;500&display=swap](https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Prompt:wght@300;400;500&display=swap)" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Prompt:wght@300;400;500&display=swap" rel="stylesheet">
     
-    <!-- Tailwind -->
-    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
     <!-- Link to CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -47,9 +45,24 @@
             <span id="w-temp" class="loading">--°C</span>
         </div>
         <div class="weather-desc" id="w-desc">กำลังโหลดข้อมูล...</div>
+
+        <div class="pomodoro-container">
+            <div class="pomodoro-header">
+                <button id="pom-work-btn" class="pom-btn active" onclick="setPomodoroMode('work')">Doing (25m)</button>
+                <button id="pom-break-btn" class="pom-btn" onclick="setPomodoroMode('break')">Break (5m)</button>
+            </div>
+            <div class="pomodoro-timer">
+            <span id="pom-min-sec">25:00</span><span id="pom-ms" class="pom-ms">.00</span>
+        </div>
+            <div class="pomodoro-controls">
+                <button id="pom-start-btn" class="pom-control-btn" onclick="togglePomodoro()">▶ Start</button>
+                <button id="pom-reset-btn" class="pom-control-btn" onclick="resetPomodoro()">↻ Reset</button>
+            </div>
+        </div>
+
     </div>
-    <div class="my-text" style="position: absolute; bottom: 30px; left: 0; width: 100%;font-weight: bold; text-align: center; font-size: 1.3rem; opacity: 0.7; z-index: 20; color: rgb(252, 255, 64); font-family: 'Courier New', mo;">
-        All of them was made by GEMINI except this message lol.
+    <div class="credit-text">
+    All of them was made by GEMINI except this message lol.
     </div>
 
     <!-- Link to JS -->
