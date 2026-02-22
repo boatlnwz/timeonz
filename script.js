@@ -112,3 +112,87 @@ function changeLocation() {
 setInterval(updateClock, 1000);
 updateClock();
 fetchWeather('bangkok');
+
+// --- Pomodoro System (Millisecond Version) ---
+let pomodoroDuration = 25 * 60 * 1000; // เก็บค่าเวลาเป็น "มิลลิวินาที" (25 นาที)
+let pomodoroTimeLeft = pomodoroDuration;
+let pomodoroInterval = null;
+let isPomodoroRunning = false;
+let pomodoroMode = 'work';
+let endTime = 0; // ตัวแปรเก็บเวลาเป้าหมายตอนหมดเวลา
+
+function updatePomodoroDisplay() {
+    // คำนวณเป็นวินาทีรวมก่อน
+    const totalSeconds = Math.floor(pomodoroTimeLeft / 1000);
+    
+    // แปลงเป็น นาที และ วินาที
+    const m = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+    const s = String(totalSeconds % 60).padStart(2, '0');
+    
+    // คำนวณเศษมิลลิวินาที (หาร 10 เพื่อให้แสดงแค่ 2 หลัก 00-99)
+    const ms = String(Math.floor((pomodoroTimeLeft % 1000) / 10)).padStart(2, '0');
+    
+    document.getElementById('pom-min-sec').innerText = `${m}:${s}`;
+    document.getElementById('pom-ms').innerText = `.${ms}`;
+}
+
+function setPomodoroMode(mode) {
+    if (isPomodoroRunning) togglePomodoro(); // หยุดเวลาก่อนถ้ากำลังวิ่งอยู่
+    
+    pomodoroMode = mode;
+    
+    // อัปเดต UI ของปุ่ม
+    document.getElementById('pom-work-btn').classList.toggle('active', mode === 'work');
+    document.getElementById('pom-break-btn').classList.toggle('active', mode === 'break');
+    
+    // ตั้งเวลาใหม่ (เป็นมิลลิวินาที)
+    pomodoroDuration = mode === 'work' ? 25 * 60 * 1000 : 5 * 60 * 1000;
+    pomodoroTimeLeft = pomodoroDuration;
+    updatePomodoroDisplay();
+}
+
+function togglePomodoro() {
+    const startBtn = document.getElementById('pom-start-btn');
+    
+    if (isPomodoroRunning) {
+        // หยุดเวลา
+        clearInterval(pomodoroInterval);
+        startBtn.innerText = '▶ Start';
+    } else {
+        // เริ่มจับเวลาใหม่
+        // ใช้ Date.now() บวกเวลาที่เหลือ เพื่อป้องกันเวลาเพี้ยนเวลาเบราว์เซอร์กระตุก
+        endTime = Date.now() + pomodoroTimeLeft;
+        
+        pomodoroInterval = setInterval(() => {
+            pomodoroTimeLeft = endTime - Date.now(); // คำนวณเวลาที่เหลือจริง
+            
+            if (pomodoroTimeLeft <= 0) {
+                // หมดเวลา
+                pomodoroTimeLeft = 0;
+                clearInterval(pomodoroInterval);
+                isPomodoroRunning = false;
+                startBtn.innerText = '▶ Start';
+                updatePomodoroDisplay();
+                
+                // แจ้งเตือนเมื่อหมดเวลา
+                setTimeout(() => {
+                    alert(pomodoroMode === 'work' ? 'หมดเวลาทำงานแล้ว! พักผ่อนหน่อยนะ 🚀' : 'หมดเวลาพักแล้ว! ลุยงานต่อ 🛰️');
+                }, 50); // delay นิดนึงเพื่อให้เลข 00:00.00 เรนเดอร์เสร็จ
+                return;
+            }
+            updatePomodoroDisplay();
+        }, 10); // อัปเดตหน้าจอทุกๆ 10 มิลลิวินาที ให้ตัวเลขไหลลื่น
+        
+        startBtn.innerText = '⏸ Pause';
+    }
+    isPomodoroRunning = !isPomodoroRunning;
+}
+
+function resetPomodoro() {
+    if (isPomodoroRunning) togglePomodoro(); // หยุดถ้ากำลังวิ่ง
+    pomodoroTimeLeft = pomodoroDuration; // รีเซ็ตเวลาตามโหมดปัจจุบัน
+    updatePomodoroDisplay();
+}
+
+// เซ็ตหน้าจอเริ่มต้นตอนเปิดเว็บ
+updatePomodoroDisplay();
